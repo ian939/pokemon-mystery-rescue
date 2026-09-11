@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mystery-rescue-v10';
+const CACHE_NAME = 'mystery-rescue-v11';
 const APP_SHELL = new URL('./', self.registration.scope).href;
 const CORE = [
   './',

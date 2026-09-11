@@ -48,7 +48,7 @@ async function audit(label) {
 
 try {
   await page.goto(baseURL, { waitUntil: 'networkidle' });
-  // 서비스 워커가 처음 자리를 잡으면 앱이 한 번 새로고침한다. 그 전에 재면 실행 맥락이 사라진다.
+  // 웹폰트와 서비스워커 등록이 비동기로 시작된 뒤에도 화면 상태가 유지되어야 한다.
   await page.waitForTimeout(1500);
   await audit('landing');
   await page.screenshot({ path: path.join(outputDir, '01-landing.png') });
