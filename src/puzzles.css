@@ -276,7 +276,7 @@
   .puzzle-footer { min-height: 66px; padding-top: 7px; padding-bottom: 9px; }
   .picture-orb { width: 112px; }
   .pattern-options button { min-height: 100px; }
-  .mirror-cell { width: clamp(30px, 4.4vw, 42px); }
+  .mirror-cell { width: clamp(44px, 4.4vw, 46px); }
   .battery-grid button { min-height: 66px; }
   .code-display span { width: 56px; height: 66px; font-size: 2rem; }
   .keypad button { min-height: 54px; }
@@ -292,6 +292,7 @@
   .keypad-board { grid-template-columns: 1fr; justify-items: center; }
   .keypad { grid-row: auto; }
   .route-board { grid-template-columns: 1fr 140px; }
+  .mirror-cell { width: clamp(34px, 4.6vw, 44px); }
   .shadow-options { flex-wrap: wrap; }
 }
 

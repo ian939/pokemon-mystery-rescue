@@ -12,6 +12,7 @@
     "test:touch": "node scripts/touch-smoke.mjs",
     "test:flow": "node scripts/game-flow-smoke.mjs",
     "test:difficulty": "node scripts/difficulty-smoke.mjs",
+    "test:screens": "node scripts/live-audit.mjs",
     "render:icon": "node scripts/render-icon.mjs",
     "fetch:fonts": "node scripts/fetch-fonts.mjs"
   },

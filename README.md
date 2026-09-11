@@ -63,7 +63,17 @@ npm run build
 npm run test:touch       # 1024×768 터치 영역·제스처·화면 넘침
 npm run test:flow        # 난이도 1의 24개 퍼즐·도감·저장·오프라인
 npm run test:difficulty  # 난이도 3의 24개 퍼즐·힌트 2개 상한
+npm run test:screens 1   # 24개 퍼즐을 하나씩 열어 화면 넘침·작은 버튼 점검 + 화면별 스크린샷
 ```
+
+`test:screens`만 기본 대상이 배포본입니다. 로컬을 보려면 주소를 지정합니다.
+
+```bash
+TEST_URL=http://127.0.0.1:4173 npm run test:screens 1
+```
+
+앞의 세 검사는 첫 퍼즐만 훑기 때문에, 퍼즐마다 다른 화면 문제는 `test:screens`가 잡습니다.
+실제로 대칭 퍼즐 칸이 42px로 작아진 문제는 이 검사로만 드러났습니다.
 
 ## GitHub Pages
 
