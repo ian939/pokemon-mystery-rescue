@@ -1,0 +1,18 @@
+/* scripts/fetch-fonts.mjs 가 만든 파일. 직접 고치지 말 것.
+   화면에 쓰는 글자 634자만 담긴 서브셋이라 인터넷 없이도 뜬다. */
+
+@font-face {
+  font-family: "Jua";
+  src: url("../fonts/jua.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gaegu";
+  src: url("../fonts/gaegu-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}

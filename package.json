@@ -1,0 +1,30 @@
+{
+  "name": "pokemon-escape-ipad-game",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc -b && vite build",
+    "build:github": "tsc -b && vite build --mode github",
+    "preview": "vite preview --host 0.0.0.0",
+    "check": "tsc -b --pretty false",
+    "test:touch": "node scripts/touch-smoke.mjs",
+    "test:flow": "node scripts/game-flow-smoke.mjs",
+    "test:difficulty": "node scripts/difficulty-smoke.mjs",
+    "render:icon": "node scripts/render-icon.mjs",
+    "fetch:fonts": "node scripts/fetch-fonts.mjs"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.7"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "playwright-core": "^1.63.0"
+  }
+}

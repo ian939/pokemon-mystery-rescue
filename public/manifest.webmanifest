@@ -1,0 +1,25 @@
+{
+  "name": "포켓몬 미스터리 구조대",
+  "short_name": "구조대",
+  "description": "관찰하고 퍼즐을 풀어 포켓몬을 구하는 어린이용 iPad 탐험 게임",
+  "lang": "ko",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#101a38",
+  "theme_color": "#101a38",
+  "icons": [
+    {
+      "src": "icons/app-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

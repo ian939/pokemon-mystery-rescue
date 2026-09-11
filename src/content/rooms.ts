@@ -1,0 +1,76 @@
+import type { RoomDefinition } from '../types';
+
+const rewardAsset = (filename: string) => `${import.meta.env.BASE_URL}assets/rewards/${filename}`;
+
+export const rooms: RoomDefinition[] = [
+  {
+    id: 'charizard', scene: 'lab', number: '사건 01', pokemonName: '리자몽', pokedexNumber: '#0006', species: '화염포켓몬', typeLabel: '불꽃 · 비행', symbol: '🔥',
+    title: '리자몽과 폭풍의 불꽃 등대', shortTitle: '불꽃 등대', location: '하늘불꽃 곶',
+    story: '밤새 몰아친 폭풍이 등대의 안전 장치를 뒤섞었어. 리자몽은 배들이 돌아올 때까지 무리하게 불을 뿜지 않고 기다리고 있어. 여섯 장치를 차례로 복구해 따뜻한 길잡이 불빛을 되살리자!',
+    objective: '등대 장치를 복구하고 리자몽과 봉화를 밝히자', teaser: '꺼진 등대 위에서 작은 꼬리 불꽃이 신호를 보내.',
+    pokedexEntry: '거센 바람 속에서도 기다릴 줄 아는 용감한 친구. 탐정과 함께 등대의 불을 되살려 모두의 귀항길을 비췄다.',
+    clueNote: '🔥 불꽃 → 🪽 날개 → ⭐ 별 → 💡 등대 순서로 확인!', accent: '#ff9a4d',
+    rewardImage: rewardAsset('charizard-official.png'), rewardTitle: '하늘불꽃의 수호자, 리자몽', rewardCaption: '리자몽의 불꽃이 등대 봉화와 만나 푸른 바다의 귀항길을 환하게 밝혔어!',
+    puzzles: [
+      { id: 'charizard-log', kind: 'antonyms', title: '젖은 항해 일지', icon: '📕', domain: 'korean', instruction: '등대 일지의 빈칸에 반대되는 말을 찾아 붙이자.', practice: '반대말 — 등대 상황을 나타내는 낱말의 뜻 비교하기', reward: '마른 일지', result: '젖은 글자가 또렷해지며 첫 장치의 위치가 보였어!', hints: ['한 낱말의 뜻과 정반대 장면을 떠올려 봐.', '어두운 곳에 불이 켜지면 어떻게 되는지 생각해 봐.'] },
+      { id: 'charizard-signal', kind: 'wordMatch', title: '바람 신호 번역기', icon: '🔭', domain: 'english', instruction: '그림을 보고 등대에 필요한 영어 단어를 고르자.', practice: '영어 낱말 — FIRE·WING·WIND·LIGHT 듣고 읽기', reward: '바람 암호', result: '영어 신호가 번역되자 바람의 방향이 나타났어!', hints: ['단어를 눌러 소리를 들어 봐.', '불은 FIRE, 날개는 WING으로 시작해.'] },
+      { id: 'charizard-furnace', kind: 'sumTen', title: '봉화 에너지 계기', icon: '⚙️', domain: 'math', instruction: '에너지 조각을 골라 봉화 칸을 가득 채우자.', practice: '수 모으기 — 목표 수 10·15·20을 여러 수의 합으로 만들기', reward: '불꽃 연료', result: '계기판이 가득 차며 봉화로 연료가 흘러갔어!', hints: ['큰 수를 먼저 고르고 빈 칸을 세어 봐.', '고른 수를 차례로 더해 목표와 같은지 확인해.'] },
+      { id: 'charizard-lens', kind: 'pattern', title: '회전 렌즈 규칙', icon: '🔆', domain: 'logic', instruction: '렌즈의 모양과 색이 반복되는 규칙을 찾아 빈칸을 채우자.', practice: '패턴 — 모양과 색의 반복 주기를 따로 관찰하기', reward: '정렬된 렌즈', result: '렌즈가 한 줄로 맞춰지며 따뜻한 빛을 모았어!', hints: ['모양만 먼저 보고, 다음에는 색만 살펴봐.', '빈칸 앞의 묶음이 어디서 다시 시작되는지 찾아봐.'] },
+      { id: 'charizard-wings', kind: 'symmetry', title: '날개 균형 홀로그램', icon: '🪽', domain: 'space', instruction: '거울선 반대쪽을 똑같이 채워 리자몽의 날개 균형을 맞추자.', practice: '대칭 — 거울선에서 같은 거리의 칸 대응하기', reward: '균형 신호', result: '양쪽 날개 신호가 딱 맞아 안전한 바람길이 열렸어!', hints: ['거울선에서 몇 칸 떨어졌는지 세어 봐.', '한 줄씩 천천히 반대편에 옮겨 봐.'] },
+      { id: 'charizard-beacon', kind: 'keypad', title: '봉화대 암호판', icon: '🔐', domain: 'logic', instruction: '모은 단서 카드의 계산과 순서를 보고 네 자리 암호를 누르자.', practice: '종합 추리 — 기호·계산·순서를 한 암호로 연결하기', reward: '봉화 점화', result: '철컥! 봉화대가 열리고 리자몽의 불꽃이 안전하게 타올랐어!', hints: ['카드 하나가 암호 한 자리야.', '계산한 수를 카드 순서대로 적어 봐.'] },
+    ],
+  },
+  {
+    id: 'snorlax', scene: 'forest', number: '사건 02', pokemonName: '잠만보', pokedexNumber: '#0143', species: '졸음포켓몬', typeLabel: '노말', symbol: '💤',
+    title: '잠만보와 멈춰 버린 달빛 축제', shortTitle: '달빛 축제', location: '보름달 들판',
+    story: '축제를 지키느라 밤을 샌 잠만보가 다리 앞에서 깊이 잠들었어. 억지로 깨우면 안 돼. 흩어진 자장가 음표와 나무열매 향기를 모아 잠만보가 기분 좋게 눈을 뜨도록 도와주자!',
+    objective: '축제 단서를 모아 잠만보를 다정하게 깨우자', teaser: '멈춘 축제 종 너머에서 커다란 코골이 소리가 들려.',
+    pokedexEntry: '친구들을 위해 밤새 축제길을 지킨 든든한 친구. 완성된 자장가와 향긋한 열매 냄새에 웃으며 눈을 떴다.',
+    clueNote: '🍎 향기 → ♪ 음표 → 🔔 종 → 🌙 달빛 순서야!', accent: '#79c6c4',
+    rewardImage: rewardAsset('snorlax-official.png'), rewardTitle: '달빛 축제의 주인공, 잠만보', rewardCaption: '잠만보가 기지개를 켜자 축제 종이 울리고 모두 함께 달빛 소풍을 시작했어!',
+    puzzles: [
+      { id: 'snorlax-note', kind: 'sentence', title: '바람에 날린 간식 쪽지', icon: '📝', domain: 'korean', instruction: '그림을 보고 잠만보에게 줄 열매 문장을 완성하자.', practice: '문장 읽기 — 그림 단서를 낱말과 문장 순서로 표현하기', reward: '간식 쪽지', result: '쪽지가 완성되자 달콤한 열매가 있는 곳을 찾았어!', hints: ['발자국이 닿은 나무의 색을 먼저 봐.', '고른 낱말을 문장 속에 넣어 소리 내어 읽어 봐.'] },
+      { id: 'snorlax-basket', kind: 'berries', title: '나무열매 바구니', icon: '🍎', domain: 'math', instruction: '열매를 묶음으로 세고 문제의 답을 고르자.', practice: '수 세기와 비교 — 다섯 묶음으로 세고 합과 차 구하기', reward: '향긋한 열매', result: '정확히 센 열매에서 잠만보가 좋아하는 향기가 퍼졌어!', hints: ['한 줄 가득 찬 칸은 5개야.', '먼저 5를 세고 남은 칸만 더해 봐.'] },
+      { id: 'snorlax-melody', kind: 'sequence', title: '코골이 음표 계단', icon: '🎵', domain: 'math', instruction: '음표에 적힌 수의 규칙을 찾고 다음 수를 고르자.', practice: '뛰어 세기 — 수가 커지거나 작아지는 간격 말하기', reward: '자장가 음표', result: '코골이 박자와 음표가 맞아 예쁜 자장가가 되었어!', hints: ['앞 수와 다음 수가 얼마나 다른지 세어 봐.', '수가 커지는지 작아지는지 먼저 확인해.'] },
+      { id: 'snorlax-bells', kind: 'directions', title: '꿈속 방향 종', icon: '🔔', domain: 'english', instruction: '영어 방향을 읽고 같은 방향의 축제 종을 누르자.', practice: '영어 방향 낱말 — LEFT·RIGHT·UP·DOWN을 움직임과 연결하기', reward: '은빛 종소리', result: '방향 종이 차례로 울리며 꿈속 길이 반짝였어!', hints: ['단어를 눌러 천천히 두 번 들어 봐.', 'LEFT는 왼쪽, RIGHT는 오른쪽이야.'] },
+      { id: 'snorlax-blanket', kind: 'shadow', title: '달빛 담요 그림자', icon: '🔦', domain: 'space', instruction: '달빛에 비친 그림자와 같은 담요 장식을 고르자.', practice: '모양 변별 — 귀와 꼬리처럼 작은 차이를 비교하기', reward: '포근한 담요', result: '꼭 맞는 담요가 잠만보의 배 위에 사뿐히 놓였어!', hints: ['바깥쪽 큰 모양부터 비교해 봐.', '뾰족한 곳과 둥근 곳의 개수를 세어 봐.'] },
+      { id: 'snorlax-route', kind: 'route', title: '완성된 축제길 지도', icon: '🗺️', domain: 'map', instruction: '별에서 출발해 표식을 지나 잠만보가 있는 달빛 무대까지 길을 그리자.', practice: '지도 읽기 — 장애물을 피하고 순서를 지키는 경로 계획하기', reward: '축제길 열림', result: '빛나는 축제길이 이어지고 잠만보가 천천히 눈을 떴어!', hints: ['옆 칸으로만 이어서 그려 봐.', '표식은 그림에 나온 순서대로 지나야 해.'] },
+    ],
+  },
+  {
+    id: 'gengar', scene: 'forest', number: '사건 03', pokemonName: '팬텀', pokedexNumber: '#0094', species: '그림자포켓몬', typeLabel: '고스트 · 독', symbol: '👻',
+    title: '팬텀과 웃음을 잃은 유령 극장', shortTitle: '유령 극장', location: '달그림자 골목',
+    story: '유령 극장의 조명이 모두 꺼지자 팬텀이 준비한 장난 공연도 멈췄어. 팬텀은 친구들을 놀라게 할까 봐 무대 뒤에 숨어 있어. 초대장과 그림자 단서를 풀어 웃음 가득한 피날레를 되찾자!',
+    objective: '극장 단서를 풀어 팬텀의 웃음 공연을 열자', teaser: '닫힌 극장 커튼 뒤에서 보랏빛 웃음이 살짝 보여.',
+    pokedexEntry: '무서워 보이는 그림자도 웃음으로 바꾸는 장난꾸러기. 탐정과 함께 조명을 고쳐 모두가 안심하고 웃는 공연을 열었다.',
+    clueNote: '🎟️ 초대장 → 🌙 달빛 → 👻 그림자 → 🎭 무대!', accent: '#9f7aea',
+    rewardImage: rewardAsset('gengar-official.png'), rewardTitle: '웃음 무대의 마술사, 팬텀', rewardCaption: '팬텀이 보랏빛 그림자로 우스운 모양을 만들자 극장에 환한 웃음이 가득 찼어!',
+    puzzles: [
+      { id: 'gengar-invite', kind: 'sentence', title: '뒤섞인 공연 초대장', icon: '🎟️', domain: 'korean', instruction: '무대 그림을 보고 말 조각을 올바른 문장으로 이어 보자.', practice: '문장 구성 — 장소 단서와 낱말 순서를 문장으로 표현하기', reward: '완성된 초대장', result: '초대장이 완성되자 첫 번째 보랏빛 전구가 켜졌어!', hints: ['빛나는 문이 어느 쪽인지 먼저 찾아봐.', '누가, 무엇을, 어떻게 했는지 순서대로 읽어 봐.'] },
+      { id: 'gengar-lights', kind: 'pattern', title: '달빛 전구 행렬', icon: '🌙', domain: 'logic', instruction: '무대 전구의 모양과 색 규칙을 찾아 빈 전구를 고르자.', practice: '패턴 — 두 가지 속성이 반복되는 규칙 분석하기', reward: '달빛 전구', result: '전구가 순서대로 반짝이며 극장 복도가 밝혀졌어!', hints: ['모양의 반복과 색의 반복을 따로 봐.', '빈칸 앞뒤에 같은 묶음이 있는지 찾아봐.'] },
+      { id: 'gengar-props', kind: 'wordMatch', title: '유령 소품 이름표', icon: '🏷️', domain: 'english', instruction: '그림을 보고 공연 소품의 영어 이름을 고르자.', practice: '영어 낱말 — GHOST·MOON·STAR·NIGHT 듣고 읽고 쓰기', reward: '소품 상자', result: '이름표가 붙자 팬텀의 공연 소품이 제자리를 찾았어!', hints: ['단어를 눌러 소리를 먼저 들어 봐.', '유령은 GHOST, 달은 MOON이야.'] },
+      { id: 'gengar-hall', kind: 'directions', title: '거울 복도 방향등', icon: '↗️', domain: 'english', instruction: '영어 방향을 읽고 거울 복도의 발판을 순서대로 누르자.', practice: '영어 지시 이해 — 방향 낱말을 순서 기억과 연결하기', reward: '무대 열쇠', result: '방향등이 켜지며 무대로 가는 안전한 문이 열렸어!', hints: ['현재 빛나는 단어 하나에 집중해.', '두 단어가 보이면 왼쪽부터 차례로 움직여.'] },
+      { id: 'gengar-shadow', kind: 'shadow', title: '무대 뒤 장난 그림자', icon: '🎭', domain: 'space', instruction: '스크린의 그림자와 같은 장난 소품 모양을 고르자.', practice: '공간 변별 — 윤곽의 세부 차이와 좌우 뒤집힘 상상하기', reward: '그림자 소품', result: '그림자가 딱 겹치며 우스운 장면이 완성됐어!', hints: ['귀처럼 튀어나온 부분부터 비교해 봐.', '뒤집혀도 모양의 종류와 개수는 같아.'] },
+      { id: 'gengar-finale', kind: 'keypad', title: '피날레 조명 암호', icon: '🔐', domain: 'logic', instruction: '조명 카드의 계산과 순서를 보고 네 자리 암호를 누르자.', practice: '종합 추리 — 계산 결과와 기호 순서를 암호로 바꾸기', reward: '공연 시작', result: '짜잔! 커튼이 열리고 팬텀의 웃음 피날레가 시작됐어!', hints: ['각 조명 카드의 답은 한 자리 수야.', '난이도 3에서는 안내문에 적힌 작은 기호부터 읽어.'] },
+    ],
+  },
+  {
+    id: 'blastoise', scene: 'lab', number: '사건 04', pokemonName: '거북왕', pokedexNumber: '#0009', species: '껍질포켓몬', typeLabel: '물', symbol: '💧',
+    title: '거북왕과 뒤엉킨 산호 수문', shortTitle: '산호 수문', location: '푸른조개 항구',
+    story: '떠내려온 해초가 산호 수문의 조절 장치를 뒤엉키게 했어. 거북왕은 물살이 잔잔해질 때까지 수문을 지키고 있어. 압력과 수로 퍼즐을 풀어 항구에 맑은 물길을 다시 연결하자!',
+    objective: '수문 압력을 맞추고 거북왕과 물길을 열자', teaser: '닫힌 수문 너머에서 힘찬 물방울 신호가 올라와.',
+    pokedexEntry: '강한 물살도 정확하게 다루는 믿음직한 친구. 탐정과 함께 수문 압력을 맞춰 항구와 산호밭에 맑은 물길을 돌려보냈다.',
+    clueNote: '🐚 조개 → 💧 물방울 → 🔧 밸브 → 🌊 바다 순서!', accent: '#5cb8f2',
+    rewardImage: rewardAsset('blastoise-official.png'), rewardTitle: '푸른 항구의 대장, 거북왕', rewardCaption: '거북왕이 마지막 밸브를 돌리자 맑은 물길이 산호밭과 항구를 힘차게 이어 주었어!',
+    puzzles: [
+      { id: 'blastoise-log', kind: 'antonyms', title: '번진 수문 기록', icon: '📘', domain: 'korean', instruction: '수문 기록의 빈칸에 반대되는 말을 찾아 붙이자.', practice: '반대말 — 물의 깊이·상태·빠르기를 나타내는 낱말 비교하기', reward: '수문 기록', result: '번진 기록이 또렷해지며 밸브 번호가 보였어!', hints: ['얕은 물의 반대 모습을 떠올려 봐.', '마른 것에 물이 닿으면 어떻게 되는지 생각해 봐.'] },
+      { id: 'blastoise-gauges', kind: 'berries', title: '세 갈래 물방울 압력계', icon: '🫧', domain: 'math', instruction: '압력계의 물방울 칸을 세고 문제의 답을 고르자.', practice: '수 세기와 비교 — 십틀로 압력 값을 읽고 합과 차 구하기', reward: '압력 수치', result: '세 압력계의 수치가 정확하게 기록됐어!', hints: ['한 줄 가득 찬 압력 칸은 5야.', '가장 큰 수와 작은 수를 먼저 찾아봐.'] },
+      { id: 'blastoise-tank', kind: 'sumTen', title: '파도 에너지 탱크', icon: '🔋', domain: 'math', instruction: '물 에너지 조각을 골라 탱크 칸을 가득 채우자.', practice: '수 모으기 — 목표 수를 만들 수 있는 수 조합 계획하기', reward: '가득 찬 탱크', result: '탱크가 가득 차며 거북왕의 수문 장치가 깨어났어!', hints: ['큰 조각 하나를 먼저 넣고 빈 칸을 세어 봐.', '조각 수를 모두 더해 목표와 같은지 확인해.'] },
+      { id: 'blastoise-valves', kind: 'sequence', title: '수문 밸브 번호', icon: '🔢', domain: 'math', instruction: '밸브 번호가 변하는 규칙을 찾고 다음 번호를 고르자.', practice: '수 규칙 — 일정한 수만큼 더하거나 빼는 변화 예측하기', reward: '밸브 손잡이', result: '번호 순서대로 밸브가 돌아가며 물살이 잔잔해졌어!', hints: ['이웃한 두 번호의 차이를 세어 봐.', '난이도 3에서는 수가 줄어드는지 확인해.'] },
+      { id: 'blastoise-cannons', kind: 'symmetry', title: '쌍둥이 물대포 조준판', icon: '🎯', domain: 'space', instruction: '거울선 반대쪽 조준등을 똑같이 켜 균형을 맞추자.', practice: '대칭 — 세로·가로 대칭 위치를 격자에서 찾기', reward: '균형 조준판', result: '양쪽 조준등이 맞아 안전한 방향으로 물길이 정렬됐어!', hints: ['거울선에서 같은 거리의 칸을 찾아.', '불이 켜진 모양을 한 줄씩 반대편에 옮겨 봐.'] },
+      { id: 'blastoise-route', kind: 'route', title: '완성된 산호 수로 지도', icon: '🗺️', domain: 'map', instruction: '닻에서 출발해 수로 표식을 지나 바다까지 길을 그리자.', practice: '지도 읽기 — 장애물과 필수 지점을 고려해 최단 경로 찾기', reward: '수문 완전 개방', result: '마지막 수로가 이어지고 맑은 물이 산호밭으로 흘러갔어!', hints: ['회색 바위와 해초 칸은 지나갈 수 없어.', '조개, 물방울, 밸브 순서로 지나 바다에 도착해.'] },
+    ],
+  },
+];
+
+export const roomById = Object.fromEntries(rooms.map((room) => [room.id, room])) as Record<RoomDefinition['id'], RoomDefinition>;

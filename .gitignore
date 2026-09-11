@@ -1,0 +1,12 @@
+node_modules/
+dist/
+test-results/
+*.tsbuildinfo
+.DS_Store
+.env
+.env.*
+!.env.example
+
+# 이전 2개 사건에서 쓰던 대형 생성 이미지(현재 앱에서는 미사용)
+public/assets/rewards/lab-ending.png
+public/assets/rewards/forest-ending.png
