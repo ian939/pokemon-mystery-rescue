@@ -71,6 +71,40 @@ export const rooms: RoomDefinition[] = [
       { id: 'blastoise-route', kind: 'route', title: '완성된 산호 수로 지도', icon: '🗺️', domain: 'map', instruction: '닻에서 출발해 수로 표식을 지나 바다까지 길을 그리자.', practice: '지도 읽기 — 장애물과 필수 지점을 고려해 최단 경로 찾기', reward: '수문 완전 개방', result: '마지막 수로가 이어지고 맑은 물이 산호밭으로 흘러갔어!', hints: ['회색 바위와 해초 칸은 지나갈 수 없어.', '조개, 물방울, 밸브 순서로 지나 바다에 도착해.'] },
     ],
   },
+  {
+    id: 'pikachu', scene: 'lab', number: '사건 05', pokemonName: '피카츄', pokedexNumber: '#0025', species: '쥐포켓몬', typeLabel: '전기', symbol: '⚡',
+    title: '피카츄와 불 꺼진 별빛 연구소', shortTitle: '별빛 연구소', location: '별빛 언덕 연구소',
+    story: '한밤중 연구소의 전기가 모두 꺼지고, 피카츄가 투명 캡슐 안에 갇혔어. 볼주머니의 전기를 아껴 두고 우리를 기다리는 중이야. 멈춘 장치를 하나씩 깨워 구조문을 열자!',
+    objective: '연구소 장치를 복구하고 피카츄를 구하자', teaser: '언덕 위 연구소에서 깜빡이는 전기 신호가 잡혀.',
+    pokedexEntry: '볼주머니에 전기를 모아 두는 씩씩한 친구. 탐정과 함께 연구소의 불을 다시 켜고 밤을 환하게 만들었다.',
+    clueNote: '☀️ 해 → 🌙 달 → 💡 선반 → 🧩 표본 순서로 확인!', accent: '#ffd84a',
+    rewardImage: rewardAsset('pikachu-ending.webp'), rewardTitle: '다시 빛난 별빛 연구소, 피카츄', rewardCaption: '피카츄의 전기가 발전기와 이어지자 연구소가 환하게 깨어났어!',
+    puzzles: [
+      { id: 'pikachu-note', kind: 'antonyms', title: '찢어진 연구 노트', icon: '📒', domain: 'korean', instruction: '연구 노트의 빈칸에 반대되는 말을 찾아 붙이자.', practice: '반대말 — 연구소 상태를 나타내는 낱말의 뜻 비교하기', reward: '전원 코드', result: '노트가 이어지자 분석기 전원 코드가 굴러 나왔어!', hints: ['한 낱말과 정반대인 장면을 떠올려 봐.', '전기가 켜지면 방이 어떻게 되는지 생각해 봐.'] },
+      { id: 'pikachu-analyzer', kind: 'wordMatch', title: '단어 분석기', icon: '🔬', domain: 'english', instruction: '그림을 보고 알맞은 영어 단어를 고르자.', practice: '영어 낱말 — BOLT·LAMP·KEY·DOOR 듣고 읽기', reward: '타입 표본', result: '표본이 차례로 불을 밝히며 분석기가 깨어났어!', hints: ['단어를 눌러 소리를 들어 봐.', '번개는 BOLT, 전등은 LAMP로 시작해.'] },
+      { id: 'pikachu-generator', kind: 'sumTen', title: '에너지 발전기', icon: '⚡', domain: 'math', instruction: '전기 조각을 골라 발전기 칸을 가득 채우자.', practice: '수 모으기 — 목표 수 10·15·20을 여러 수의 합으로 만들기', reward: '밝은 조명', result: '우우웅! 칸이 꽉 차자 연구소 조명이 켜졌어!', hints: ['빈 칸이 몇 개 남았는지 보고 그만큼 더 골라.', '큰 조각을 먼저 놓고 남은 칸을 세어 봐.'] },
+      { id: 'pikachu-shelf', kind: 'pattern', title: '타입 표본 선반', icon: '🧪', domain: 'logic', instruction: '표본의 모양과 색이 반복되는 규칙을 찾아 빈칸을 채우자.', practice: '패턴 — 모양과 색의 반복 주기를 따로 관찰하기', reward: '숫자 4', result: '선반이 제자리를 찾자 숨어 있던 숫자 4가 떠올랐어!', hints: ['모양만 먼저 보고, 다음에 색만 살펴봐.', '빈칸 앞뒤를 함께 보면 규칙이 보여.'] },
+      { id: 'pikachu-hologram', kind: 'symmetry', title: '홀로그램 투영기', icon: '🪞', domain: 'space', instruction: '가운데 빛줄기를 거울이라고 생각하고 반대쪽을 똑같이 채우자.', practice: '대칭 — 거울선에서 같은 거리의 칸 대응하기', reward: '숫자 2', result: '좌우가 딱 맞자 홀로그램에 숫자 2가 떠올랐어!', hints: ['거울선에서 한 칸 떨어진 칸은 반대쪽도 한 칸이야.', '맨 윗줄부터 한 줄씩 차례로 맞춰 봐.'] },
+      { id: 'pikachu-keypad', kind: 'keypad', title: '보안 키패드', icon: '🔐', domain: 'logic', instruction: '모은 단서 카드를 읽고 네 자리 암호를 누르자.', practice: '종합 추리 — 기호·계산·순서를 한 암호로 연결하기', reward: '구조문 열림', result: '보안 해제! 구조 캡슐의 문이 열리고 피카츄가 뛰어나왔어!', hints: ['카드 하나가 암호 한 자리야.', '계산한 수를 카드 순서대로 적어 봐.'] },
+    ],
+  },
+  {
+    id: 'eevee', scene: 'forest', number: '사건 06', pokemonName: '이브이', pokedexNumber: '#0133', species: '진화포켓몬', typeLabel: '노말', symbol: '🐾',
+    title: '이브이와 안개 낀 숲속 미로', shortTitle: '숲속 미로', location: '안개 열매숲',
+    story: '짙은 안개가 숲의 길 표지판을 모두 뒤섞어 버렸어. 이브이는 큰 나무 앞에서 길을 잃고 우리를 기다리는 중이야. 숲의 표식과 지도 조각을 모아 이브이에게 가자!',
+    objective: '지도 조각을 모아 이브이를 찾자', teaser: '안개 너머에서 작은 발자국이 이어지고 있어.',
+    pokedexEntry: '여러 모습으로 자라날 수 있는 호기심 많은 친구. 탐정이 완성한 지도를 따라 안개 밖으로 무사히 나왔다.',
+    clueNote: '🍎 열매 → 💧 개울 → 🔦 동굴 순서로 지나기!', accent: '#a9ef79',
+    rewardImage: rewardAsset('eevee-ending.webp'), rewardTitle: '안개 너머의 친구, 이브이', rewardCaption: '빛나는 길 끝에서 이브이와 숲 친구들이 함께 달려 나왔어!',
+    puzzles: [
+      { id: 'eevee-sign', kind: 'sentence', title: '부서진 안내판', icon: '🪧', domain: 'korean', instruction: '발자국이 어느 나무로 갔는지 보고 문장을 완성하자.', practice: '문장 읽기 — 그림 단서를 문장으로 옮기고 말의 순서 잡기', reward: '지도 조각 1', result: '안내판이 붙자 첫 번째 지도 조각이 떨어졌어!', hints: ['발자국이 향한 나무의 열매 색을 먼저 봐.', '완성한 문장을 그림과 나란히 읽어 확인해.'] },
+      { id: 'eevee-berries', kind: 'berries', title: '세 갈래 열매 나무', icon: '🍎', domain: 'math', instruction: '열매를 세어 문제의 답을 고르자.', practice: '수 세기와 비교 — 십틀로 한눈에 세고 더하거나 빼기', reward: '안전한 길', result: '수를 맞히자 그 길의 안개가 스르르 걷혔어!', hints: ['열매 칸이 다섯 개씩 묶여 있어. 묶음으로 세면 빨라.', '가득 찬 줄은 5개, 남은 것만 더 세면 돼.'] },
+      { id: 'eevee-stream', kind: 'sequence', title: '개울의 디딤돌', icon: '💧', domain: 'math', instruction: '먼저 규칙을 고르고, 그다음 디딤돌의 수를 고르자.', practice: '뛰어 세기 — 수의 규칙을 말로 정한 뒤 다음 수 예상하기', reward: '지도 조각 2', result: '디딤돌이 이어지며 두 번째 지도 조각이 떠올랐어!', hints: ['앞 돌과 다음 돌의 차이를 손가락으로 세어 봐.', '커지는지 작아지는지부터 정하면 쉬워.'] },
+      { id: 'eevee-cave', kind: 'directions', title: '동굴의 방향 문자', icon: '🧭', domain: 'english', instruction: '영어 단어를 읽고 그 방향의 발판을 밟자.', practice: '영어 방향 낱말 — 읽은 순서대로 몸을 움직여 보기', reward: '동굴 열쇠', result: '발판이 순서대로 빛나며 동굴 문이 열렸어!', hints: ['단어를 누르면 소리를 들을 수 있어.', 'LEFT는 왼쪽, RIGHT는 오른쪽, UP은 위쪽이야.'] },
+      { id: 'eevee-shadow', kind: 'shadow', title: '손전등 그림자', icon: '🔦', domain: 'space', instruction: '벽에 비친 그림자와 똑같은 모양을 고르자.', practice: '모양 변별 — 귀·꼬리처럼 작은 차이를 찾고 뒤집힌 모양 상상하기', reward: '지도 조각 3', result: '모양이 겹쳐지자 마지막 지도 조각이 나타났어!', hints: ['귀가 몇 개이고 어떤 모양인지 먼저 세어 봐.', '꼬리가 위로 섰는지 아래로 늘어졌는지 비교해.'] },
+      { id: 'eevee-map', kind: 'route', title: '완성된 숲 지도', icon: '🗺️', domain: 'map', instruction: '별에서 출발해 표식을 차례로 지나 큰 나무까지 길을 그리자.', practice: '지도 읽기 — 장애물을 피해 순서를 지키는 길 계획하기', reward: '큰 나무 도착', result: '빛나는 길이 완성됐어. 큰 나무 아래 이브이가 기다리고 있어!', hints: ['손가락을 떼지 말고 옆 칸으로만 이어 그려.', '회색 바위는 지날 수 없어. 돌아가는 길을 찾아봐.'] },
+    ],
+  },
 ];
 
 export const roomById = Object.fromEntries(rooms.map((room) => [room.id, room])) as Record<RoomDefinition['id'], RoomDefinition>;

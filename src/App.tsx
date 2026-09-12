@@ -271,7 +271,6 @@ function MapScreen({ progress, onChoose, onHome, onGallery, onDifficulty, onRese
         <div className="map-actions"><button onClick={onGallery}>🖼️ 도감 <b>{progress.unlockedIllustrations.length}/{rooms.length}</b></button><QuickSettings difficulty={progress.settings.difficulty} onDifficulty={onDifficulty} onReset={onReset} onParent={onParent} /></div>
       </header>
       <section className="case-map" aria-label="사건 선택">
-        <div className="map-path" aria-hidden="true"><i /><i /><i /><i /></div>
         {rooms.map((room, index) => {
           const previousRoom = rooms[index - 1];
           const unlocked = index === 0 || progress.unlockedIllustrations.includes(previousRoom.id);

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mystery-rescue-v11';
+const CACHE_NAME = 'mystery-rescue-v12';
 const APP_SHELL = new URL('./', self.registration.scope).href;
 const CORE = [
   './',
@@ -13,6 +13,8 @@ const CORE = [
   './assets/rewards/snorlax-official.png',
   './assets/rewards/gengar-official.png',
   './assets/rewards/blastoise-official.png',
+  './assets/rewards/pikachu-ending.webp',
+  './assets/rewards/eevee-ending.webp',
 ].map((path) => new URL(path, self.registration.scope).href);
 
 self.addEventListener('install', (event) => {

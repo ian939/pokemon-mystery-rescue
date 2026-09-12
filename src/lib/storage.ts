@@ -6,12 +6,12 @@ const PROGRESS_KEY = 'player-progress';
 const FALLBACK_KEY = 'mystery-rescue-progress';
 const EVENT_KEY = 'mystery-rescue-local-events-v2';
 
-const ROOM_IDS: RoomId[] = ['charizard', 'snorlax', 'gengar', 'blastoise'];
+const ROOM_IDS: RoomId[] = ['charizard', 'snorlax', 'gengar', 'blastoise', 'pikachu', 'eevee'];
 
 export const defaultProgress: PlayerProgress = {
   schemaVersion: 2,
   nickname: '신입 탐정',
-  completedPuzzleIds: { charizard: [], snorlax: [], gengar: [], blastoise: [] },
+  completedPuzzleIds: { charizard: [], snorlax: [], gengar: [], blastoise: [], pikachu: [], eevee: [] },
   completedRooms: [],
   unlockedIllustrations: [],
   settings: { narration: true, hintSpeed: 'normal', sound: true, difficulty: 1 },

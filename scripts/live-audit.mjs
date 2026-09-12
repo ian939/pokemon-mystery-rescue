@@ -18,6 +18,8 @@ const ROOMS = [
   { id: 'snorlax', puzzles: ['snorlax-note', 'snorlax-basket', 'snorlax-melody', 'snorlax-bells', 'snorlax-blanket', 'snorlax-route'] },
   { id: 'gengar', puzzles: ['gengar-invite', 'gengar-lights', 'gengar-props', 'gengar-hall', 'gengar-shadow', 'gengar-finale'] },
   { id: 'blastoise', puzzles: ['blastoise-log', 'blastoise-gauges', 'blastoise-tank', 'blastoise-valves', 'blastoise-cannons', 'blastoise-route'] },
+  { id: 'pikachu', puzzles: ['pikachu-note', 'pikachu-analyzer', 'pikachu-generator', 'pikachu-shelf', 'pikachu-hologram', 'pikachu-keypad'] },
+  { id: 'eevee', puzzles: ['eevee-sign', 'eevee-berries', 'eevee-stream', 'eevee-cave', 'eevee-shadow', 'eevee-map'] },
 ];
 const ALL_ROOM_IDS = ROOMS.map((room) => room.id);
 

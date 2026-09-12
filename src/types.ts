@@ -1,4 +1,4 @@
-export type RoomId = 'charizard' | 'snorlax' | 'gengar' | 'blastoise';
+export type RoomId = 'charizard' | 'snorlax' | 'gengar' | 'blastoise' | 'pikachu' | 'eevee';
 
 export type PuzzleKind =
   | 'antonyms'

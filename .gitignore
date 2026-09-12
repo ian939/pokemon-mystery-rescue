@@ -7,6 +7,7 @@ test-results/
 .env.*
 !.env.example
 
-# 이전 2개 사건에서 쓰던 대형 생성 이미지(현재 앱에서는 미사용)
+# 피카츄·이브이 도감 그림의 원본(1448x1086, 합계 4.5MB).
+# 앱에는 scripts 로 1000px WebP 로 줄인 pikachu-ending.webp / eevee-ending.webp 만 싣는다.
 public/assets/rewards/lab-ending.png
 public/assets/rewards/forest-ending.png

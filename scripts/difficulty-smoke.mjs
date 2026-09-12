@@ -96,12 +96,53 @@ try {
   await openCurrent('완성된 산호 수로 지도');
   for (const cell of [0, 1, 6, 11, 16, 17, 18, 19]) await dialog().locator(`[data-route-cell="${cell}"]`).click();
   await tap('이 길로 가기'); await waitSolved();
-  await page.getByRole('heading', { name: '푸른 항구의 대장, 거북왕' }).waitFor();
+  await nextCase('푸른 항구의 대장, 거북왕');
+  console.log('PASS difficulty 3 거북왕');
+
+  await startNextCase();
+  await openCurrent('찢어진 연구 노트');
+  for (const word of ['밝은', '켜진', '가벼운', '열린']) await tap(word);
+  await tap('기록 맞추기'); await waitSolved();
+  // 난이도 3의 단어 분석기는 고르기가 아니라 글자를 순서대로 눌러 쓰는 문제다.
+  await openCurrent('단어 분석기');
+  for (const [index, word] of ['BOLT', 'LAMP', 'KEY'].entries()) {
+    for (const letter of word) await tap(letter);
+    if (index < 2) await dialog().locator('.progress-pips i.done').nth(index).waitFor();
+  }
+  await waitSolved();
+  await openCurrent('에너지 발전기');
+  for (const number of [4, 7, 9]) await tap(`전기 조각 ${number}`);
+  await tap('에너지 보내기'); await waitSolved();
+  await openCurrent('타입 표본 선반'); await tap('노란 세모'); await waitSolved();
+  // 가로 거울선: 위 세 줄과 똑같이 아래 세 줄을 채운다.
+  await openCurrent('홀로그램 투영기');
+  await mirror(['5,0', '5,1', '5,4', '5,5', '4,1', '4,2', '4,3', '4,4', '3,0', '3,2', '3,3', '3,5']);
+  await tap('빛 쏘기'); await waitSolved();
+  await openCurrent('보안 키패드');
+  for (const digit of ['7', '2', '6', '1']) await tap(digit);
+  await tap('확인'); await waitSolved();
+  await nextCase('다시 빛난 별빛 연구소, 피카츄');
+  console.log('PASS difficulty 3 피카츄');
+
+  await startNextCase();
+  await openCurrent('부서진 안내판');
+  for (const word of ['빨간', '열매가', '가장', '적은']) await tap(word);
+  await tap('안내판 붙이기'); await waitSolved();
+  await openCurrent('세 갈래 열매 나무'); await tap('5'); await waitSolved();
+  await openCurrent('개울의 디딤돌'); await tap('3씩 작아져요'); await tap('9'); await waitSolved();
+  await openCurrent('동굴의 방향 문자');
+  for (const direction of ['왼쪽', '아래쪽', '위쪽', '오른쪽', '아래쪽', '왼쪽']) await tap(direction);
+  await waitSolved();
+  await openCurrent('손전등 그림자'); await tap('그림자 후보 2번'); await waitSolved();
+  await openCurrent('완성된 숲 지도');
+  for (const cell of [15, 10, 11, 6, 7, 2, 3, 4]) await dialog().locator(`[data-route-cell="${cell}"]`).click();
+  await tap('이 길로 가기'); await waitSolved();
+  await page.getByRole('heading', { name: '안개 너머의 친구, 이브이' }).waitFor();
 
   const saved = await page.evaluate(() => JSON.parse(localStorage.getItem('mystery-rescue-progress') ?? '{}'));
-  if (saved.settings?.difficulty !== 3 || saved.completedRooms?.length !== 4) throw new Error('difficulty 3 progress did not persist for all cases');
-  console.log('PASS difficulty 3 거북왕');
-  console.log('PASS difficulty 3: all 24 puzzles; hint cap exactly 2');
+  if (saved.settings?.difficulty !== 3 || saved.completedRooms?.length !== 6) throw new Error('difficulty 3 progress did not persist for all cases');
+  console.log('PASS difficulty 3 이브이');
+  console.log('PASS difficulty 3: all 36 puzzles; hint cap exactly 2');
 } finally {
   await browser.close();
 }

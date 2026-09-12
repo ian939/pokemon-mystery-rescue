@@ -137,21 +137,68 @@ try {
   await page.screenshot({ path: path.join(outputDir, '09-blastoise-reward.png') });
   console.log('PASS 거북왕: 6개 퍼즐과 도감 보상');
 
+  await page.getByRole('button', { name: /다음에 계속/ }).click();
+  await startNextCase();
+
+  await openCurrent('찢어진 연구 노트');
+  for (const word of ['밝은', '켜진']) await tap(word);
+  await tap('기록 맞추기'); await waitSolved();
+  await openCurrent('단어 분석기');
+  for (const [index, word] of ['BOLT', 'LAMP', 'KEY'].entries()) {
+    await dialog().getByRole('button', { name: new RegExp(word) }).click();
+    if (index < 2) await dialog().locator('.progress-pips i.done').nth(index).waitFor();
+  }
+  await waitSolved();
+  await openCurrent('에너지 발전기');
+  for (const number of [3, 7]) await tap(`전기 조각 ${number}`);
+  await tap('에너지 보내기'); await waitSolved();
+  await openCurrent('타입 표본 선반');
+  await tap('빨간 별'); await waitSolved();
+  await openCurrent('홀로그램 투영기');
+  await mirror(['0,3', '1,4', '1,3', '2,5', '2,4', '2,3', '3,4', '4,3']);
+  await tap('빛 쏘기'); await waitSolved();
+  await openCurrent('보안 키패드');
+  for (const digit of ['4', '2', '1', '3']) await tap(digit);
+  await tap('확인'); await waitSolved();
+  await finishCase('다시 빛난 별빛 연구소, 피카츄', '10-pikachu-reward.png');
+  console.log('PASS 피카츄: 6개 퍼즐과 도감 보상');
+
+  await startNextCase();
+
+  await openCurrent('부서진 안내판');
+  await tap('빨간'); await tap('안내판 붙이기'); await waitSolved();
+  await openCurrent('세 갈래 열매 나무');
+  await dialog().getByRole('button', { name: /가운데 나무/ }).click(); await waitSolved();
+  await openCurrent('개울의 디딤돌');
+  await tap('2씩 커져요'); await tap('7'); await waitSolved();
+  await openCurrent('동굴의 방향 문자');
+  for (const direction of ['오른쪽', '왼쪽', '아래쪽']) await tap(direction);
+  await waitSolved();
+  await openCurrent('손전등 그림자');
+  await tap('그림자 후보 2번'); await waitSolved();
+  await openCurrent('완성된 숲 지도');
+  for (const cell of [15, 10, 11, 6, 7, 2, 3, 4]) await dialog().locator(`[data-route-cell="${cell}"]`).click();
+  await tap('이 길로 가기'); await waitSolved();
+  await page.getByRole('heading', { name: '안개 너머의 친구, 이브이' }).waitFor();
+  await page.waitForTimeout(1900);
+  await page.screenshot({ path: path.join(outputDir, '11-eevee-reward.png') });
+  console.log('PASS 이브이: 6개 퍼즐과 도감 보상');
+
   await page.getByRole('button', { name: '도감 보기' }).click();
   await page.getByRole('heading', { name: '탐험 도감' }).waitFor();
   await page.waitForTimeout(500);
-  await page.screenshot({ path: path.join(outputDir, '10-pokedex-gallery.png'), fullPage: true });
-  console.log('PASS Pokédex gallery: four completed entries rendered');
+  await page.screenshot({ path: path.join(outputDir, '12-pokedex-gallery.png'), fullPage: true });
+  console.log('PASS Pokédex gallery: six completed entries rendered');
 
   const persisted = await page.evaluate(() => JSON.parse(localStorage.getItem('mystery-rescue-progress') ?? '{}'));
-  if (persisted.schemaVersion !== 2 || persisted.unlockedIllustrations?.length !== 4 || persisted.completedRooms?.length !== 4) throw new Error(`progress did not persist: ${JSON.stringify(persisted)}`);
-  console.log('PASS persistence: 4 cases and 4 Pokédex entries saved locally');
+  if (persisted.schemaVersion !== 2 || persisted.unlockedIllustrations?.length !== 6 || persisted.completedRooms?.length !== 6) throw new Error(`progress did not persist: ${JSON.stringify(persisted)}`);
+  console.log('PASS persistence: 6 cases and 6 Pokédex entries saved locally');
 
   await page.waitForFunction(() => navigator.serviceWorker?.controller, undefined, { timeout: 8000 });
   await context.setOffline(true);
   await page.reload({ waitUntil: 'domcontentloaded' });
   await page.getByRole('heading', { name: /미스터리 구조대/ }).waitFor();
-  console.log('PASS PWA offline reload: app shell, four artworks, and progress restored');
+  console.log('PASS PWA offline reload: app shell, six artworks, and progress restored');
   await context.setOffline(false);
 } finally {
   await browser.close();

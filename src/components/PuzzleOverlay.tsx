@@ -6,6 +6,8 @@ const roomPuzzleLabel: Record<RoomId, string> = {
   snorlax: '달빛 축제 단서',
   gengar: '유령 극장 단서',
   blastoise: '산호 수문 단서',
+  pikachu: '별빛 연구소 단서',
+  eevee: '안개 숲 단서',
 };
 
 type Props = {
@@ -201,6 +203,8 @@ function Antonyms({ correct, wrong, speak, difficulty, roomId }: Body) {
     snorlax: { pairs: [{ word: '시끄러운', answer: '조용한' }, { word: '가벼운', answer: '무거운' }, { word: '빠른', answer: '느린' }, { word: '작은', answer: '큰' }], distractors: ['밝은', '마른'] },
     gengar: { pairs: [{ word: '밝은', answer: '어두운' }, { word: '긴', answer: '짧은' }, { word: '넓은', answer: '좁은' }, { word: '웃는', answer: '우는' }], distractors: ['높은', '빠른'] },
     blastoise: { pairs: [{ word: '얕은', answer: '깊은' }, { word: '마른', answer: '젖은' }, { word: '흐린', answer: '맑은' }, { word: '빠른', answer: '느린' }], distractors: ['뜨거운', '작은'] },
+    pikachu: { pairs: [{ word: '어두운', answer: '밝은' }, { word: '꺼진', answer: '켜진' }, { word: '무거운', answer: '가벼운' }, { word: '닫힌', answer: '열린' }], distractors: ['느린', '좁은'] },
+    eevee: { pairs: [{ word: '차가운', answer: '뜨거운' }, { word: '큰', answer: '작은' }, { word: '깊은', answer: '얕은' }, { word: '빠른', answer: '느린' }], distractors: ['조용한', '좁은'] },
   };
   const set = wordSets[roomId];
   const pairs = set.pairs.slice(0, difficulty + 1);
@@ -276,6 +280,8 @@ function WordMatch({ correct, wrong, speak, difficulty, hintLevel, roomId }: Bod
     snorlax: [{ icon: '💭', answer: 'DREAM' }, { icon: '🌙', answer: 'MOON' }, { icon: '🔔', answer: 'BELL' }, { icon: '🍎', answer: 'BERRY' }, { icon: '⭐', answer: 'STAR' }],
     gengar: [{ icon: '👻', answer: 'GHOST' }, { icon: '🌙', answer: 'MOON' }, { icon: '⭐', answer: 'STAR' }, { icon: '🌃', answer: 'NIGHT' }, { icon: '🎭', answer: 'MASK' }],
     blastoise: [{ icon: '💧', answer: 'WATER' }, { icon: '🐚', answer: 'SHELL' }, { icon: '🌊', answer: 'WAVE' }, { icon: '🔵', answer: 'BLUE' }, { icon: '⛵', answer: 'BOAT' }],
+    pikachu: [{ icon: '⚡', answer: 'BOLT' }, { icon: '💡', answer: 'LAMP' }, { icon: '🔑', answer: 'KEY' }, { icon: '🚪', answer: 'DOOR' }, { icon: '🔋', answer: 'POWER' }],
+    eevee: [{ icon: '🦊', answer: 'FOX' }, { icon: '🍃', answer: 'LEAF' }, { icon: '🗺️', answer: 'MAP' }, { icon: '🌫️', answer: 'FOG' }, { icon: '🛤️', answer: 'PATH' }],
   };
   const allItems = itemSets[roomId];
   const items = difficulty === 3 ? allItems.slice(0, 3) : allItems.slice(0, difficulty + 2);
@@ -358,8 +364,11 @@ function SumTen({ correct, wrong, difficulty, roomId }: Body) {
   const needed = difficulty === 1 ? 2 : 3;
   const charizardBatteries = difficulty === 3 ? [3, 5, 4, 9, 6, 8] : [2, 6, 3, 8, 4, 7];
   const blastoiseBatteries: Record<Difficulty, number[]> = { 1: [1, 4, 6, 9, 3, 7], 2: [1, 5, 4, 9, 6, 8], 3: [2, 5, 7, 8, 9, 11] };
-  const batteries = roomId === 'blastoise' ? blastoiseBatteries[difficulty] : charizardBatteries;
-  const pieceName = roomId === 'blastoise' ? '물 에너지' : '불꽃 에너지';
+  const pikachuBatteries: Record<Difficulty, number[]> = { 1: [3, 7, 2, 9, 5, 4], 2: [2, 6, 4, 9, 5, 7], 3: [4, 6, 3, 9, 7, 8] };
+  const batteriesByRoom: Partial<Record<RoomId, number[]>> = { blastoise: blastoiseBatteries[difficulty], pikachu: pikachuBatteries[difficulty] };
+  const pieceNames: Partial<Record<RoomId, string>> = { blastoise: '물 에너지', pikachu: '전기 조각' };
+  const batteries = batteriesByRoom[roomId] ?? charizardBatteries;
+  const pieceName = pieceNames[roomId] ?? '불꽃 에너지';
   const [selected, setSelected] = useState<number[]>([]);
   const total = selected.reduce((sum, number) => sum + number, 0);
   const frames = Math.ceil(target / 10);
@@ -434,7 +443,14 @@ function Pattern({ correct, wrong, difficulty, roomId }: Body) {
     2: { sequence: [S('circle', 'blue'), S('star', 'red'), S('triangle', 'yellow'), S('circle', 'blue'), S('star', 'red'), S('triangle', 'yellow'), S('circle', 'blue')], gap: 4, options: [S('star', 'blue'), S('star', 'red'), S('triangle', 'yellow')] },
     3: { sequence: [S('triangle', 'yellow'), S('star', 'blue'), S('circle', 'yellow'), S('triangle', 'blue'), S('star', 'yellow'), S('circle', 'blue'), S('triangle', 'yellow')], gap: 4, options: [S('star', 'yellow'), S('circle', 'yellow'), S('star', 'blue'), S('triangle', 'blue')] },
   };
-  const round = roomId === 'gengar' ? ghostRounds[difficulty] : rounds[difficulty];
+  const sparkRounds: Record<Difficulty, { sequence: Cap[]; gap: number; options: Cap[] }> = {
+    1: { sequence: [S('circle', 'yellow'), S('circle', 'yellow'), S('star', 'red'), S('star', 'red'), S('circle', 'yellow'), S('circle', 'yellow'), S('star', 'red')], gap: 6, options: [S('circle', 'yellow'), S('star', 'red'), S('triangle', 'blue')] },
+    2: { sequence: [S('star', 'red'), S('circle', 'yellow'), S('triangle', 'blue'), S('star', 'red'), S('circle', 'yellow'), S('triangle', 'blue'), S('star', 'red')], gap: 4, options: [S('star', 'red'), S('circle', 'yellow'), S('triangle', 'blue')] },
+    // 모양은 동그라미·세모·별 3개 주기, 색은 노랑·빨강 2개 주기로 따로 돈다.
+    3: { sequence: [S('circle', 'yellow'), S('triangle', 'red'), S('star', 'yellow'), S('circle', 'red'), S('triangle', 'yellow'), S('star', 'red'), S('circle', 'yellow')], gap: 4, options: [S('triangle', 'yellow'), S('triangle', 'red'), S('circle', 'yellow'), S('star', 'yellow')] },
+  };
+  const roundsByRoom: Partial<Record<RoomId, typeof rounds>> = { gengar: ghostRounds, pikachu: sparkRounds };
+  const round = (roundsByRoom[roomId] ?? rounds)[difficulty];
   const answer = round.sequence[round.gap];
 
   return (
@@ -461,14 +477,24 @@ function Pattern({ correct, wrong, difficulty, roomId }: Body) {
 
 /* ---------------------------------------------------------------- 5. 대칭 (공간) */
 
-const SYMMETRY_ROUNDS: Record<Difficulty, { columns: number; rows: number; axis: 'vertical' | 'horizontal'; given: string[] }> = {
+type SymmetryRound = { columns: number; rows: number; axis: 'vertical' | 'horizontal'; given: string[] };
+
+const SYMMETRY_ROUNDS: Record<Difficulty, SymmetryRound> = {
   1: { columns: 6, rows: 5, axis: 'vertical', given: ['.#.', '##.', '###', '##.', '.#.'] },
   2: { columns: 8, rows: 5, axis: 'vertical', given: ['..##', '.##.', '####', '.##.', '..##'] },
   3: { columns: 6, rows: 6, axis: 'horizontal', given: ['.####.', '##..##', '#.##.#'] },
 };
 
-function Symmetry({ correct, wrong, difficulty, hintLevel }: Body) {
-  const round = SYMMETRY_ROUNDS[difficulty];
+/** 별빛 연구소는 번개 모양으로 다른 그림을 맞춘다. */
+const SPARK_SYMMETRY_ROUNDS: Record<Difficulty, SymmetryRound> = {
+  1: { columns: 6, rows: 5, axis: 'vertical', given: ['..#', '.##', '###', '.#.', '..#'] },
+  2: { columns: 8, rows: 5, axis: 'vertical', given: ['.#.#', '##..', '####', '##..', '.#.#'] },
+  3: { columns: 6, rows: 6, axis: 'horizontal', given: ['##..##', '.####.', '#.##.#'] },
+};
+
+function Symmetry({ correct, wrong, difficulty, hintLevel, roomId }: Body) {
+  const roundsByRoom: Partial<Record<RoomId, Record<Difficulty, SymmetryRound>>> = { pikachu: SPARK_SYMMETRY_ROUNDS };
+  const round = (roundsByRoom[roomId] ?? SYMMETRY_ROUNDS)[difficulty];
   const { columns, rows, axis } = round;
 
   const given = useMemo(() => {
@@ -569,7 +595,13 @@ function Keypad({ correct, wrong, difficulty, roomId }: Body) {
     2: { code: '7352', clues: [{ mark: '🎟️', text: '3 + 4' }, { mark: '🌙', text: '8 − 5' }, { mark: '👻', text: '2 + 3' }, { mark: '🎭', text: '4의 반' }] },
     3: { code: '5284', note: '무대 가까운 순서: 🎭 → 👻 → 🌙 → 🎟️', clues: [{ mark: '🎟️', text: '2 + 2' }, { mark: '🌙', text: '1 + 7' }, { mark: '👻', text: '6 − 4' }, { mark: '🎭', text: '10의 반' }] },
   };
-  const round = roomId === 'gengar' ? theaterRounds[difficulty] : lighthouseRounds[difficulty];
+  const labRounds: Record<Difficulty, { code: string; clues: { mark: string; text: string }[]; note?: string }> = {
+    1: { code: '4213', clues: [{ mark: '☀️', text: '그림 ④' }, { mark: '🌙', text: '그림 ②' }, { mark: '💡', text: '선반 ①' }, { mark: '🧩', text: '표본 ③' }] },
+    2: { code: '6427', clues: [{ mark: '☀️', text: '2 + 4' }, { mark: '🌙', text: '6 − 2' }, { mark: '💡', text: '1 + 1' }, { mark: '🧩', text: '3 + 4' }] },
+    3: { code: '7261', note: '작은 장치부터 누르기: 🧩 → 💡 → 🌙 → ☀️', clues: [{ mark: '☀️', text: '5 − 4' }, { mark: '🌙', text: '2 + 4' }, { mark: '💡', text: '1 + 1' }, { mark: '🧩', text: '3 + 4' }] },
+  };
+  const roundsByRoom: Partial<Record<RoomId, typeof lighthouseRounds>> = { gengar: theaterRounds, pikachu: labRounds };
+  const round = (roundsByRoom[roomId] ?? lighthouseRounds)[difficulty];
   const [code, setCode] = useState('');
   const submit = () => (code === round.code ? correct() : (wrong('카드의 계산과 순서를 다시 확인해 보자.'), setCode('')));
 
@@ -615,7 +647,26 @@ function Sentence({ correct, wrong, difficulty, roomId }: Body) {
     2: { choices: ['파란', '보라', '노란', '초록'], expected: ['보라', '파란'] },
     3: { choices: ['친구들을', '팬텀은', '했어요', '웃게'], expected: ['팬텀은', '친구들을', '웃게', '했어요'] },
   };
-  const { choices, expected } = (roomId === 'gengar' ? theaterRounds : forestRounds)[difficulty];
+  const eeveeRounds: Record<Difficulty, { choices: string[]; expected: string[] }> = forestRounds;
+  const roundsByRoom: Partial<Record<RoomId, typeof forestRounds>> = { gengar: theaterRounds, eevee: eeveeRounds };
+  const { choices, expected } = (roundsByRoom[roomId] ?? forestRounds)[difficulty];
+  // 빈칸 사이에 들어가는 글 토막. 토막 수 − 1 이 빈칸 수다.
+  const trailSentences: Partial<Record<RoomId, Record<Difficulty, string[]>>> = {
+    snorlax: {
+      1: ['잠만보에게 줄 향기는 ', ' 열매 나무에 있어요.'],
+      2: ['향기는 ', ' 열매가 ', ' 나무에서 나요.'],
+      3: ['향기는 ', ' 나무에서 나요.'],
+    },
+    eevee: {
+      1: ['이브이의 발자국은 ', ' 열매 나무로 이어져요.'],
+      2: ['이브이는 ', ' 열매가 ', ' 나무 쪽으로 갔어요.'],
+      3: ['이브이는 ', ' 나무로 갔어요.'],
+    },
+  };
+  const fragments = (trailSentences[roomId] ?? trailSentences.snorlax!)[difficulty];
+  const blanks = difficulty === 3
+    ? [answers.length ? answers.join(' ') : '＿＿ ＿＿ ＿＿ ＿＿']
+    : Array.from({ length: fragments.length - 1 }, (_, index) => answers[index] || '＿＿');
   const choose = (word: string) =>
     setAnswers(answers.includes(word) ? answers.filter((answer) => answer !== word) : answers.length < expected.length ? [...answers, word] : [word]);
   const isCorrect = answers.length === expected.length && answers.every((answer, index) => answer === expected[index]);
@@ -649,14 +700,12 @@ function Sentence({ correct, wrong, difficulty, roomId }: Body) {
         <div className="trail-steps" aria-hidden="true"><span>🐾</span><span>🐾</span><span>🐾</span></div>
       </div>
       <p className="sentence-line">
-        {difficulty === 1
-          ? <>잠만보에게 줄 향기는 <strong>{answers[0] || '＿＿'}</strong> 열매 나무에 있어요.</>
-          : difficulty === 2
-            ? <>향기는 <strong>{answers[0] || '＿＿'}</strong> 열매가 <strong>{answers[1] || '＿＿'}</strong> 나무에서 나요.</>
-            : <>향기는 <strong>{answers.length ? answers.join(' ') : '＿＿ ＿＿ ＿＿ ＿＿'}</strong> 나무에서 나요.</>}
+        {fragments.map((fragment, index) => (
+          <span key={index}>{fragment}{index < blanks.length && <strong>{blanks[index]}</strong>}</span>
+        ))}
       </p>
       <div className="choice-row word-chips">{choices.map((word) => <button className={`word-chip ${answers.includes(word) ? 'is-used' : ''}`} key={word} onClick={() => choose(word)}>{word}</button>)}</div>
-      <button className="primary-button submit-button" disabled={answers.length !== expected.length} onClick={() => (isCorrect ? correct() : wrong('발자국이 닿은 나무를 보고 말의 순서를 다시 살펴봐.'))}>쪽지 완성하기</button>
+      <button className="primary-button submit-button" disabled={answers.length !== expected.length} onClick={() => (isCorrect ? correct() : wrong('발자국이 닿은 나무를 보고 말의 순서를 다시 살펴봐.'))}>{roomId === 'eevee' ? '안내판 붙이기' : '쪽지 완성하기'}</button>
     </div>
   );
 }
@@ -674,8 +723,14 @@ function Berries({ correct, wrong, difficulty, roomId }: Body) {
     2: { counts: [5, 6, 8], question: '왼쪽과 오른쪽 압력계의 물방울을 더하면?', answer: 13, options: [11, 12, 13, 14] },
     3: { counts: [10, 3, 7], question: '가장 높은 압력과 가장 낮은 압력의 차이는?', answer: 7, options: [5, 6, 7, 8] },
   };
+  const forestRounds: Record<Difficulty, { counts: [number, number, number]; question: string; answer: number; options: number[] }> = {
+    1: { counts: [5, 3, 7], question: '열매가 3개인 나무는 어느 것일까?', answer: 3, options: [5, 3, 7] },
+    2: { counts: [6, 4, 7], question: '왼쪽 나무와 오른쪽 나무의 열매를 더하면?', answer: 13, options: [11, 12, 13, 14] },
+    3: { counts: [8, 3, 5], question: '가장 많은 나무와 가장 적은 나무의 차이는?', answer: 5, options: [4, 5, 6, 7] },
+  };
   const isWater = roomId === 'blastoise';
-  const round = (isWater ? waterRounds : berryRounds)[difficulty];
+  const roundsByRoom: Partial<Record<RoomId, typeof berryRounds>> = { blastoise: waterRounds, eevee: forestRounds };
+  const round = (roundsByRoom[roomId] ?? berryRounds)[difficulty];
   const names = ['왼쪽', '가운데', '오른쪽'];
   const containerName = isWater ? '압력계' : '나무';
   const unitName = isWater ? '물방울' : '열매';
@@ -718,7 +773,13 @@ function Sequence({ correct, wrong, difficulty, roomId }: Body) {
     2: { values: [4, 8, 12], rule: '4씩 커져요', ruleChoices: ['3씩 커져요', '4씩 커져요', '5씩 커져요'], answer: 16, numberChoices: [14, 16, 20] },
     3: { values: [30, 25, 20], rule: '5씩 작아져요', ruleChoices: ['4씩 작아져요', '5씩 작아져요', '5씩 커져요'], answer: 15, numberChoices: [10, 15, 25] },
   };
-  const round = (roomId === 'blastoise' ? valveRounds : dreamRounds)[difficulty];
+  const streamRounds: Record<Difficulty, { values: number[]; rule: string; ruleChoices: string[]; answer: number; numberChoices: number[] }> = {
+    1: { values: [1, 3, 5], rule: '2씩 커져요', ruleChoices: ['1씩 커져요', '2씩 커져요', '3씩 커져요'], answer: 7, numberChoices: [6, 7, 9] },
+    2: { values: [2, 6, 10], rule: '4씩 커져요', ruleChoices: ['3씩 커져요', '4씩 커져요', '5씩 커져요'], answer: 14, numberChoices: [12, 14, 16] },
+    3: { values: [18, 15, 12], rule: '3씩 작아져요', ruleChoices: ['2씩 작아져요', '3씩 작아져요', '3씩 커져요'], answer: 9, numberChoices: [9, 10, 15] },
+  };
+  const roundsByRoom: Partial<Record<RoomId, typeof dreamRounds>> = { blastoise: valveRounds, eevee: streamRounds };
+  const round = (roundsByRoom[roomId] ?? dreamRounds)[difficulty];
   const [stage, setStage] = useState<'rule' | 'number'>('rule');
   const step = round.values[1] - round.values[0];
   const hop = step > 0 ? `+${step}` : `${step}`;
@@ -769,7 +830,13 @@ function Directions({ correct, wrong, speak, difficulty, roomId }: Body) {
     2: [{ words: ['LEFT'], arrows: ['←'] }, { words: ['DOWN'], arrows: ['↓'] }, { words: ['RIGHT'], arrows: ['→'] }, { words: ['UP'], arrows: ['↑'] }],
     3: [{ words: ['RIGHT', 'DOWN'], arrows: ['→', '↓'] }, { words: ['LEFT', 'UP'], arrows: ['←', '↑'] }, { words: ['UP', 'RIGHT'], arrows: ['↑', '→'] }],
   };
-  const groups = (roomId === 'gengar' ? theaterRounds : dreamRounds)[difficulty];
+  const caveRounds: Record<Difficulty, { words: string[]; arrows: string[] }[]> = {
+    1: [{ words: ['RIGHT'], arrows: ['→'] }, { words: ['LEFT'], arrows: ['←'] }, { words: ['DOWN'], arrows: ['↓'] }],
+    2: [{ words: ['UP'], arrows: ['↑'] }, { words: ['RIGHT'], arrows: ['→'] }, { words: ['DOWN'], arrows: ['↓'] }, { words: ['LEFT'], arrows: ['←'] }],
+    3: [{ words: ['LEFT', 'DOWN'], arrows: ['←', '↓'] }, { words: ['UP', 'RIGHT'], arrows: ['↑', '→'] }, { words: ['DOWN', 'LEFT'], arrows: ['↓', '←'] }],
+  };
+  const roundsByRoom: Partial<Record<RoomId, typeof dreamRounds>> = { gengar: theaterRounds, eevee: caveRounds };
+  const groups = (roundsByRoom[roomId] ?? dreamRounds)[difficulty];
   const [group, setGroup] = useState(0);
   const [within, setWithin] = useState(0);
   const current = groups[group];
@@ -853,7 +920,13 @@ function Shadow({ correct, wrong, difficulty, roomId }: Body) {
     2: { target: { ears: 'pointed', tail: 'thin' }, options: [{ ears: 'pointed', tail: 'bushy' }, { ears: 'round', tail: 'thin' }, { ears: 'pointed', tail: 'thin' }] },
     3: { target: { ears: 'pointed', tail: 'curl', flip: true }, options: [{ ears: 'pointed', tail: 'bushy' }, { ears: 'pointed', tail: 'curl' }, { ears: 'long', tail: 'curl' }] },
   };
-  const round = (roomId === 'gengar' ? theaterRounds : dreamRounds)[difficulty];
+  const torchRounds: Record<Difficulty, { target: CreatureSpec; options: CreatureSpec[] }> = {
+    1: { target: { ears: 'long', tail: 'bushy' }, options: [{ ears: 'round', tail: 'curl' }, { ears: 'long', tail: 'bushy' }, { ears: 'pointed', tail: 'thin' }] },
+    2: { target: { ears: 'round', tail: 'bushy' }, options: [{ ears: 'round', tail: 'thin' }, { ears: 'round', tail: 'bushy' }, { ears: 'pointed', tail: 'bushy' }] },
+    3: { target: { ears: 'round', tail: 'curl', flip: true }, options: [{ ears: 'round', tail: 'bushy' }, { ears: 'round', tail: 'curl' }, { ears: 'long', tail: 'curl' }] },
+  };
+  const roundsByRoom: Partial<Record<RoomId, typeof dreamRounds>> = { gengar: theaterRounds, eevee: torchRounds };
+  const round = (roundsByRoom[roomId] ?? dreamRounds)[difficulty];
   const matches = (option: CreatureSpec) => option.ears === round.target.ears && option.tail === round.target.tail;
 
   return (
@@ -885,9 +958,10 @@ function Route({ correct, wrong, difficulty, roomId }: Body) {
     ? difficulty === 1 ? [3, 7, 12, 14] : difficulty === 2 ? [3, 5, 7, 9, 12, 14] : [2, 3, 4, 5, 7, 8, 9, 10, 12, 13, 14, 15]
     : difficulty === 1 ? [5, 12, 13, 18] : difficulty === 2 ? [1, 5, 8, 12, 13, 18] : [1, 5, 8, 9, 12, 13, 14, 16, 17, 18, 19];
   const required = isWater ? [1, 11, 18] : [11, 7, 3];
-  const icons: Record<number, string> = isWater ? { 0: '⚓', 1: '🐚', 11: '💧', 18: '🔧', 19: '🌊' } : { 15: '★', 11: '🍎', 7: '💧', 3: '🔦', 4: '🌙' };
+  const endIcon = isWater ? '🌊' : roomId === 'eevee' ? '🌳' : '🌙';
+  const icons: Record<number, string> = isWater ? { 0: '⚓', 1: '🐚', 11: '💧', 18: '🔧', 19: '🌊' } : { 15: '★', 11: '🍎', 7: '💧', 3: '🔦', 4: endIcon };
   const requiredText = isWater ? '🐚 → 💧 → 🔧' : '🍎 → 💧 → 🔦';
-  const endName = isWater ? '바다 🌊' : '달빛 무대 🌙';
+  const endName = isWater ? '바다 🌊' : roomId === 'eevee' ? '큰 나무 🌳' : '달빛 무대 🌙';
   const [path, setPath] = useState<number[]>([]);
   const drawing = useRef(false);
 
@@ -941,7 +1015,7 @@ function Route({ correct, wrong, difficulty, roomId }: Body) {
         ))}
       </div>
       <div className="route-legend">
-        <span>{isWater ? '⚓ 출발' : '★ 출발'}</span><span>{requiredText} 지나기</span><span>{isWater ? '🌊 도착' : '🌙 도착'}</span>
+        <span>{isWater ? '⚓ 출발' : '★ 출발'}</span><span>{requiredText} 지나기</span><span>{endIcon} 도착</span>
         <b>그린 길 {path.length}칸{difficulty === 3 ? ` · 목표 ${shortestLength}칸` : ''}</b>
       </div>
       <div className="route-actions">
